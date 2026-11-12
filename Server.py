@@ -5,13 +5,14 @@ CodeRoom backend — Flask + Flask-SocketIO
 import random
 import string
 import time
+import os
 
 from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_socketio import SocketIO, join_room, leave_room, emit
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "coderoom-dev-secret"
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "development-only-key")
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 socketio = SocketIO(
